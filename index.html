@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<script src="sweetalert-dev.js"></script>
+	<link rel="stylesheet" href="sweetalert.css" type="text/css" />
+
+	<script src="wordcloud2.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+
+	<script src="layer-v3.5.1/layer/layer.js"></script>
+
+	<!--导入OPPO字体-->
+	<style>
+		@font-face {
+			font-family: OPPO;
+			src: url('OPPOSans-L-2.ttf');
+		}
+	</style>
+
+	<script src="main.js"></script>
+
+	<meta name="keywords" content="网易云评论词云,网抑云评论词云,PHP生成词云,大数据">
+	<meta name="description" content="网易云评论词云——探索每个人的心情">
+	<title>网易云评论词云</title>
+</head>
+
+<body style="background-color:#F5F5F5;font-family:'OPPO';">
+	<div class="container">
+		<div class="card shadow mt-2 mx-auto" style="border-radius: .8rem;">
+			<div class="card-body" style="text-align:center;">
+				<h3>Welcome to 网易云评论词云</h3>
+			</div>
+		</div>
+		<div class="card shadow mt-2 mx-auto" style="border-radius: .8rem;">
+			<div class="card-body">
+				<div class="input-group mb-3" style="border-radius: .8rem;">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">音乐链接:</span>
+					</div>
+					<input id="wangzhi" type="text" class="form-control"
+						placeholder="https://music.163.com/#/song?id=1857223982" aria-label="Username"
+						aria-describedby="basic-addon1">
+				</div>
+			</div>
+			<button id="tijiao" type="button" class="btn btn-light mx-auto mb-2"
+				style="margin-top: -30px !important;">提交</button>
+		</div>
+		<div id="ciKaPian" class="card shadow mx-auto mt-1 mb-1" style="border-radius: .8rem !important;display:none;">
+			<div class="card-body">
+				<div id="tishi"
+					style="border-radius: .4rem !important;background:rgba(0,0,0,0.4);color:#fff;position: fixed;">
+				</div>
+				<canvas id="canvas" width="1080px" height="680px" style="width:100%;height: 100%;"></canvas>
+			</div>
+		</div>
+		<div id="ciTongJiKaPian" class="card shadow mx-auto mt-1 mb-2"
+			style="border-radius: .8rem !important;display:none;">
+			<div class="card-body">
+				<!-- <p style="font-size: 20px;text-align: center;">评论统计</p> -->
+				<div id="echartsPingLun" style="width: 1080px;height:880px;"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

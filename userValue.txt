@@ -1,0 +1,33 @@
+API https://music.163.com/api/v1/user/detail/483086357
+
+nickname：
+用户名
+字符串形式
+
+Gender：
+代表：性别
+没填 = 0
+男 = 1
+女 = 2
+
+birthday：
+代表：生日
+以时间戳(毫秒)表示
+没填 = -2209017600000
+
+city：
+代表：城市
+行政划分代码
+
+createTime：
+代表：注册时间
+以时间戳(毫秒)表示
+
+判断以上某参数为null则证明没填
+
+
+$decodeUserData->profile->avatarUrl;//用户头像
+$decodeUserData->profile->nickname;//用户名
+$decodeUserData->profile->gender;//性别
+$decodeUserData->profile->birthday;//生日
+$decodeUserData->profile->city;//城市
