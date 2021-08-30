@@ -13,7 +13,7 @@ $(document).ready(function () {
 			});
 		}
 	}, 100)
-	document.getElementById("tijiao").onclick = function () {
+	document.getElementById("tijiao").onclick = function () {	
 		defaultData()
 		DanQuRePing()
 	}
@@ -222,11 +222,11 @@ $(document).ready(function () {
 		var zhengze = /id=(.*)/;
 		var post1 = wangzhi.value.match(zhengze);
 		if (post1 == null) {
-			sweetAlert("Error", "您输入的是网易云音乐链接吗？\n链接输入错误，请检查后重试！", "warning");
+			//sweetAlert("Error", "您输入的是网易云音乐链接吗？\n链接输入错误，请检查后重试！", "warning");
 		} else {
 			post1 = post1[1];
 			//加载层-默认风格
-			layer.load();
+			//layer.load();
 			$.post('main.php', {
 				id: post1,
 				type: 'RePing',
@@ -244,10 +244,20 @@ $(document).ready(function () {
 					// 	html: true,
 					// });
 				} else {
-					alert(data);
+					//alert(data);
 					// ciyun(data);
+					document.getElementById('RePing').style.display = '';
+					var data = JSON.parse(data);
+					if (data['UserContent']['beReplied'] != null) {
+						document.getElementById('RePing2').style.display = '';
+						document.getElementById('RePing3').src = data['UserAvatar'];
+						//data['UserContentTime'];
+					}else{
+
+					}
+					console.log(data);
 				}
-				layer.closeAll('loading');
+				//layer.closeAll('loading');
 			});
 		}
 	}

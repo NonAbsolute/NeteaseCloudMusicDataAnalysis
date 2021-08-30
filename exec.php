@@ -324,7 +324,12 @@ for ($i = 0; $i <= 999999999; $i = $i + 20) {
 		}
 		$time2 = new Time();
 		$UserContentTime = $time2->getMsecToMescdate($value->time);
-		$RePingData[$count5] = ['UserId' => $userId, 'UserAvatar' => $decodeUserData->profile->avatarUrl, 'UserName' => $decodeUserData->profile->nickname, 'UserGender' => $UserGender, 'UserAge' => $UserAge, 'UserBirthday' => $UserBirthday, 'UserCity' => $UserCity, 'UserContent' => $value->content, 'UserContentTime' => $UserContentTime, 'UserLikedCount' => $value->likedCount];
+		if ($value->beReplied != null && $value->beReplied[0]->content != null) {
+			$UserContent = ['beReplied' => ['UserName' => $value->beReplied[0]->user->nickname, 'UserAvatar' => $value->beReplied[0]->user->avatarUrl, 'UserContent' => $value->beReplied[0]->content], 'UserContent' => $value->content];
+		} else {
+			$UserContent = ['UserContent' => $value->content];
+		}
+		$RePingData[$count5] = ['UserId' => $userId, 'UserAvatar' => $decodeUserData->profile->avatarUrl, 'UserName' => $decodeUserData->profile->nickname, 'UserGender' => $UserGender, 'UserAge' => $UserAge, 'UserBirthday' => $UserBirthday, 'UserCity' => $UserCity, 'UserContent' => $UserContent, 'UserContentTime' => $UserContentTime, 'UserLikedCount' => $value->likedCount];
 		$count5++;
 	}
 }
@@ -393,4 +398,4 @@ fclose($RePingData1);
 unlink('weiyixing-' . $id . '.txt');
 
 
-//评论的回复
+//评论时间的精确度
