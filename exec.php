@@ -213,7 +213,7 @@ class Time
 	/**
 	 * 毫秒时间戳转日期
 	 */
-	function getMsecToMescdate($time, $TimeType)
+	public function getMsecToMescdate($time, $TimeType)
 	{
 		$time = $time + 28800000;
 		$time = $time * 0.001;
