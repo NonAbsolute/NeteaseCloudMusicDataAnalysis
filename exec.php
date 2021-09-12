@@ -211,21 +211,38 @@ class Time
 	}
 
 	/**
-	 * 毫秒转日期
+	 * 毫秒时间戳转日期
 	 */
-	public function getMsecToMescdate($msectime)
+	function getMsecToMescdate($time, $TimeType)
 	{
-		$msectime = $msectime * 0.001;
-		if (strstr($msectime, '.')) {
-			sprintf("%01.3f", $msectime);
-			list($usec, $sec) = explode(".", $msectime);
-			$sec = str_pad($sec, 3, "0", STR_PAD_RIGHT);
+		$time = $time + 28800000;
+		$time = $time * 0.001;
+		if (strstr($time, '.')) {
+			sprintf("%01.3f", $time); //小数点。不足三位补0
+			list($usec, $sec) = explode(".", $time);
+			$sec = str_pad($sec, 3, "0", STR_PAD_RIGHT); //不足3位。右边补0
 		} else {
-			$usec = $msectime;
+			$usec = $time;
 			$sec = "000";
 		}
-		$date = date("Y-m-d", $usec);
-		return $date;
+		if ($TimeType == 'UserContentTime') {
+			$date = date("Y-m-d H:i:s", $usec);
+			return $date;
+		} else if ($TimeType == 'UserBirthday') {
+			$date = date("Y-m-d", $usec);
+			return $date;
+		}
+	}
+
+	//时间戳转年龄
+	public function Millisecond_timestamp_to_Age($Time)
+	{
+		if ($Time > 31536000000) {
+			$year = floor($Time / 31536000000);
+		} else {
+			$year = null;
+		}
+		return $year;
 	}
 }
 
@@ -309,21 +326,20 @@ for ($i = 0; $i <= 999999999; $i = $i + 20) {
 		} else {
 			$time = new Time(); //新建对象；
 			$UserAge = $time->getMsecTime() - $decodeUserData->profile->birthday;
-			$UserAge = $UserAge / 1000 / 60 / 60 / 24 / 366;
-			$UserAge = round($UserAge);
+			$UserAge = $time->Millisecond_timestamp_to_Age($UserAge);
 		}
 		if ($decodeUserData->profile->birthday == -2209017600000) {
 			$UserBirthday = null;
 		} else {
 			$time = new Time(); //新建对象；
-			$UserBirthday = $time->getMsecToMescdate($decodeUserData->profile->birthday + 86400000);
+			$UserBirthday = $time->getMsecToMescdate($decodeUserData->profile->birthday, 'UserBirthday');
 		}
 		if ($decodeUserData->profile->city != null) {
 			$xingzhengcode = new XingZhengCode();
 			$UserCity = $xingzhengcode->xingzhengcode($decodeUserData->profile->city);
 		}
 		$time2 = new Time();
-		$UserContentTime = $time2->getMsecToMescdate($value->time);
+		$UserContentTime = $time2->getMsecToMescdate($value->time, 'UserContentTime');
 		if ($value->beReplied != null && $value->beReplied[0]->content != null) {
 			$UserContent = ['beReplied' => ['UserName' => $value->beReplied[0]->user->nickname, 'UserAvatar' => $value->beReplied[0]->user->avatarUrl, 'UserContent' => $value->beReplied[0]->content], 'UserContent' => $value->content];
 		} else {
@@ -397,5 +413,9 @@ fclose($RePingData1);
 //防止用户重复提交任务——删除weiyixing-id.txt
 unlink('weiyixing-' . $id . '.txt');
 
-
-//评论时间的精确度
+/*目前待处理：
+解决词云在评论数量为40条时词云太小
+点击饼状图弹出多个网易云搜索页面
+完成热评功能
+简化收发post请求的函数
+*/
