@@ -303,4 +303,13 @@ $(document).ready(function () {
 		dom: document.getElementById('GoodWarning'),
 		direction: 2
 	})
+
+	$(function () { $("[data-toggle='popover']").popover(); });
+	var caidan = document.getElementById('CaiDan');
+	caidan.onmouseover=function(){
+		$("#CaiDan").trigger("click");
+	}
+	caidan.onmouseout=function(){
+		$("#CaiDan").trigger("click");
+	}
 });
