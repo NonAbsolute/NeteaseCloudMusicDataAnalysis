@@ -76,29 +76,48 @@ function changeTimeType()
 register_shutdown_function("changeTimeType");
 /*PHP运行时间&内存消耗统计结束*/
 
-/**
- * 发送post请求
+/*
+POST发送
+ * @param array $valuePost 你想请求哪个POST？格式：array('flag'->'标识',‘value’->‘id’)
  * @param string $url 请求地址
  * @param array $post_data post键值对数据
  * @return string
- */
-function send_post($url, $post_data, $id)
-{
-	$postdata = http_build_query($post_data);
-	$options = array(
-		'http' => array(
-			'method' => 'POST',
-			'header' => array(
-				'Content-Type: application/x-www-form-urlencoded',
-				'Host: music.163.com',
-				'Origin: https://music.163.com',
-				'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.3 Safari/605.1.15',
-				'Referer: https://music.163.com/song?id=' . $id,
-			),
-			'content' => $postdata,
-			'timeout' => 15 * 60 // 超时时间（单位:s）
-		)
-	);
+*/
+function PostNumberOne($valuePost, $url, $post_data)
+{	$options = array();
+	if ($valuePost['flag'] == '163Music-User') {
+		$postdata = http_build_query($post_data);
+		$options = array(
+			'http' => array(
+				'method' => 'POST',
+				'header' => array(
+					'Content-Type: application/x-www-form-urlencoded',
+					'Host: music.163.com',
+					'Origin: https://music.163.com',
+					'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.3 Safari/605.1.15',
+					'Referer: https://music.163.com/song?id=' . $valuePost['value'],
+				),
+				'content' => $postdata,
+				'timeout' => 15 * 60 // 超时时间（单位:s）
+			)
+		);
+	} else if ($valuePost['flag'] == 'ltp.ai') {
+		$postdata = $post_data;
+		$options = array(
+			'http' => array(
+				'method' => 'POST',
+				'header' => array(
+					'Content-Type: application/json',
+					'Origin: http://ltp.ai',
+					'Host: 39.96.43.154:8080',
+					'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.3 Safari/605.1.15',
+					'Referer: http://ltp.ai/',
+				),
+				'content' => $postdata,
+				'timeout' => 15 * 60 // 超时时间（单位:s）
+			)
+		);
+	}
 	$context = stream_context_create($options);
 	$result = file_get_contents($url, false, $context);
 	if ($result == false) {
@@ -115,89 +134,6 @@ function send_post($url, $post_data, $id)
 	}
 	return $result;
 }
-//请求结束
-
-/**
- * 发送post请求
- * @param string $url 请求地址
- * @param array $post_data post键值对数据
- * @return string
- */
-function send_post2($url, $postdata)
-{
-	$options = array(
-		'http' => array(
-			'method' => 'POST',
-			'header' => array(
-				'Content-Type: application/json',
-				'Origin: http://ltp.ai',
-				'Host: 39.96.43.154:8080',
-				'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.3 Safari/605.1.15',
-				'Referer: http://ltp.ai/',
-			),
-			'content' => $postdata,
-			'timeout' => 15 * 60 // 超时时间（单位:s）
-		)
-	);
-	$context = stream_context_create($options);
-	$result = file_get_contents($url, false, $context);
-	if ($result == false) {
-		$result = file_get_contents($url, false, $context);
-		if ($result == false) {
-			$result = file_get_contents($url, false, $context);
-			if ($result == false) {
-				$result = file_get_contents($url, false, $context);
-				if ($result == false) {
-					$result = file_get_contents($url, false, $context);
-				}
-			}
-		}
-	}
-	return $result;
-}
-//请求结束
-
-/**
- * 发送post请求
- * @param string $url 请求地址
- * @param array $post_data post键值对数据
- * @return string
- */
-function send_post3($url, $post_data, $id)
-{
-	$postdata = http_build_query($post_data);
-	$options = array(
-		'http' => array(
-			'method' => 'POST',
-			'header' => array(
-				'Content-Type: application/x-www-form-urlencoded',
-				'Host: music.163.com',
-				'Origin: https://music.163.com',
-				'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.3 Safari/605.1.15',
-				'Referer: https://music.163.com/song?id=' . $id,
-			),
-			'content' => $postdata,
-			'timeout' => 15 * 60 // 超时时间（单位:s）
-		)
-	);
-	$context = stream_context_create($options);
-	$result = file_get_contents($url, false, $context);
-	if ($result == false) {
-		$result = file_get_contents($url, false, $context);
-		if ($result == false) {
-			$result = file_get_contents($url, false, $context);
-			if ($result == false) {
-				$result = file_get_contents($url, false, $context);
-				if ($result == false) {
-					$result = file_get_contents($url, false, $context);
-				}
-			}
-		}
-	}
-	return $result;
-}
-//请求结束
-
 class Time
 {
 	/**
@@ -284,7 +220,8 @@ $count5 = 0;
 $RePingData = array(); //保存用户信息及评论
 for ($i = 0; $i <= 999999999; $i = $i + 20) {
 	$limitoffset = array('limit' => '20', 'offset' => $i);
-	$value = send_post('https://music.163.com/api/v1/resource/comments/R_SO_4_' . $id, $limitoffset, $id);
+	$valuePost = array('flag' => '163Music-User','value'=>$id);
+	$value = PostNumberOne($valuePost,'https://music.163.com/api/v1/resource/comments/R_SO_4_' . $id, $limitoffset);
 	$decodeValue = json_decode($value);
 	$commentsValue = 'comments';
 	$accidentError = false;
@@ -312,7 +249,8 @@ for ($i = 0; $i <= 999999999; $i = $i + 20) {
 	foreach ($decodeValue->$commentsValue as $key => $value) {
 		$userId = $value->user->userId; //用户id
 		$nullPost_data = array();
-		$userData = send_post3('https://music.163.com/api/v1/user/detail/' . $userId, $nullPost_data, $id);
+		$valuePost = array('flag' => '163User-User','value'=>$id);
+		$userData = PostNumberOne($valuePost,'https://music.163.com/api/v1/user/detail/' . $userId, $nullPost_data);
 		$decodeUserData = json_decode($userData);
 		if ($decodeUserData->profile->gender == 0) {
 			$UserGender = null;
@@ -343,7 +281,7 @@ for ($i = 0; $i <= 999999999; $i = $i + 20) {
 		if ($value->beReplied != null && $value->beReplied[0]->content != null) {
 			$UserContent = ['beReplied' => ['UserName' => $value->beReplied[0]->user->nickname, 'UserAvatar' => $value->beReplied[0]->user->avatarUrl, 'UserContent' => $value->beReplied[0]->content], 'UserContent' => $value->content];
 		} else {
-			$UserContent = ['UserContent' => $value->content];
+			$UserContent = $value->content;
 		}
 		$RePingData[$count5] = ['UserId' => $userId, 'UserAvatar' => $decodeUserData->profile->avatarUrl, 'UserName' => $decodeUserData->profile->nickname, 'UserGender' => $UserGender, 'UserAge' => $UserAge, 'UserBirthday' => $UserBirthday, 'UserCity' => $UserCity, 'UserContent' => $UserContent, 'UserContentTime' => $UserContentTime, 'UserLikedCount' => $value->likedCount];
 		$count5++;
@@ -361,7 +299,8 @@ $count2 = 0;
 foreach ($yuandata as $value4) {
 	$typemsg = array('text' => $value4);
 	$typemsg = json_encode($typemsg); //把数组转换为json
-	$value2 = send_post2('http://39.96.43.154:8080/api', $typemsg);
+	$valuePost = array('flag' => 'ltp.ai');
+	$value2 = PostNumberOne($valuePost,'http://39.96.43.154:8080/api', $typemsg);
 	$value2 = json_decode($value2); //把json转换为对象
 	foreach ($value2->words as $value3) { //遍历获得所有分词
 		if ($value3->pos != 'u' && $value3->pos != 'c' && $value3->pos != 'p' && $value3->text != '[' && $value3->text != ']' && $value3->text != '\\' && $value3->text != '\\\\' && $value3->text != '\\n' && $value3->text != '\\\\n' && $value3->text != 'n' && $value3->text != '[]') { //排除：助词，例如“的, 地”、连词，例如“和, 虽然”、介词，例如“在, 把”、和"[]"，"\", "\\", "\n", "\\n", "n", "[", "]"符
@@ -412,10 +351,3 @@ fclose($RePingData1);
 
 //防止用户重复提交任务——删除weiyixing-id.txt
 unlink('weiyixing-' . $id . '.txt');
-
-/*目前待处理：
-解决词云在评论数量为40条时词云太小
-点击饼状图弹出多个网易云搜索页面
-完成热评功能
-简化收发post请求的函数
-*/

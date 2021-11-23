@@ -7,21 +7,22 @@
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 	<script src="sweetalert-dev.js"></script>
 	<link rel="stylesheet" href="sweetalert.css" type="text/css" />
 
 	<script src="wordcloud2.js"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
 
 	<script src="layer-v3.5.1/layer/layer.js"></script>
 
+	<script src="//cdn.jsdelivr.net/npm/seamscroll@0.0.12/build/seamscroll.min.js"></script>
 	<!--导入OPPO字体-->
 	<style>
 		@font-face {
@@ -41,6 +42,21 @@
 	<div class="container">
 		<div class="d-flex">
 			<div class="mx-auto">
+				<div id="AlertWarning" class="alert alert-warning shadow mx-auto"
+					style="border-radius: .8rem;overflow: hidden;height: 40px;width: 500px;position: relative;"
+					role="alert">
+					<div id="GoodWarning" style="margin-top:-10px;">
+						<span style="line-height: 40px;float: left;text-align: center;margin-right: 40px;">
+							网易云音乐评论数据分析，生成词云和可视化图；本项目仅为交流学习使用！
+						</span>
+						<span style="line-height: 40px;float: left;text-align: center;margin-right: 40px;">
+							网易云音乐评论数据分析，生成词云和可视化图；本项目仅为交流学习使用！
+						</span>
+						<span style="line-height: 40px;float: left;text-align: center;margin-right: 40px;">
+							网易云音乐评论数据分析，生成词云和可视化图；本项目仅为交流学习使用！
+						</span>
+					</div>
+				</div>
 				<div class="card shadow mt-2 mx-auto" style="border-radius: .8rem;">
 					<div class="card-body" style="text-align:center;">
 						<h3>Welcome to 网易云评论词云</h3>
@@ -53,40 +69,41 @@
 								<span class="input-group-text" id="basic-addon1">音乐链接:</span>
 							</div>
 							<input id="wangzhi" type="text" class="form-control"
-								placeholder="https://music.163.com/#/song?id=1857223982" aria-label="Username"
+								placeholder="https://music.163.com/#/song?id=1894109714" aria-label="Username"
 								aria-describedby="basic-addon1">
 						</div>
 					</div>
 					<button id="tijiao" type="button" class="btn btn-light mx-auto mb-2"
 						style="margin-top: -30px !important;">提交</button>
 				</div>
-				<div id="RePing"class="card shadow mx-auto mt-1 mb-1" style="border-radius: .8rem !important;display:none;">
+				<div id="RePing" class="card shadow mx-auto mt-1 mb-1"
+					style="border-radius: .8rem !important;display:none;">
 					<div class="card-body">
 						<div class="float-left">
 							<div class="d-flex justify-content-center">
-								<img src="TX.png" alt="TX" style="width: 90px;height: 90px;"
+								<img id="RePing6" src="" alt="TX" style="width: 90px;height: 90px;"
 									class="shadow img-thumbnail">
 								<!--用户头像-->
 							</div>
 							<div class="d-flex justify-content-center">
-								<font>玩个锤子</font>
+								<font id="RePing7"></font>
 								<!--用户名-->
 							</div>
 						</div>
 						<div class="d-flex justify-content-start mt-1">
 							<div class="card">
 								<div class="card-body">
-									<font>马总，好久不见；最近如何？</font>
+									<font id="RePing8"></font>
 									<!--评论内容-->
-									<div class="d-flex justify-content-start mt-1">
-										<font style="color:#808080;font-size: 12px;">2021/8/26 22:51</font>
+									<div class="d-flex justify-content-start mt-1" id="RePing13">
+										<font id="RePing9" style="color:#808080;font-size: 12px;"></font>
 										<!--评论时间-->
 										<svg class="bi bi-hand-thumbs-up ml-1" width="0.9em" height="0.9em"
-											viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											viewBox="0 0 16 16" fill="currentColor" xmlns="//www.w3.org/2000/svg">
 											<path fill-rule="evenodd"
 												d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16v-1c.563 0 .901-.272 1.066-.56a.865.865 0 0 0 .121-.416c0-.12-.035-.165-.04-.17l-.354-.354.353-.354c.202-.201.407-.511.505-.804.104-.312.043-.441-.005-.488l-.353-.354.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315L12.793 9l.353-.354c.353-.352.373-.713.267-1.02-.122-.35-.396-.593-.571-.652-.653-.217-1.447-.224-2.11-.164a8.907 8.907 0 0 0-1.094.171l-.014.003-.003.001a.5.5 0 0 1-.595-.643 8.34 8.34 0 0 0 .145-4.726c-.03-.111-.128-.215-.288-.255l-.262-.065c-.306-.077-.642.156-.667.518-.075 1.082-.239 2.15-.482 2.85-.174.502-.603 1.268-1.238 1.977-.637.712-1.519 1.41-2.614 1.708-.394.108-.62.396-.62.65v4.002c0 .26.22.515.553.55 1.293.137 1.936.53 2.491.868l.04.025c.27.164.495.296.776.393.277.095.63.163 1.14.163h3.5v1H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
 										</svg>
-										<font style="color:#808080;font-size: 12px;">9999</font>
+										<font id="RePing10" style="color:#808080;font-size: 12px;"></font>
 										<!--点赞量-->
 									</div>
 								</div>
@@ -94,35 +111,35 @@
 						</div>
 
 						<!-- 评论回复 -->
-						<div id="RePing2"class="card" style="background:#F5F5F5;display:none;">
+						<div id="RePing2" class="card" style="background:#F5F5F5;display:none;">
 							<div class="card-body">
 								<font class="float-left" style="color:#808080;">回复：</font>
 								<div class="float-left">
 									<div class="d-flex justify-content-center">
-										<img id="RePing3"src="TX2.png" alt="TX2" style="width: 90px;height: 90px;"
+										<img id="RePing3" src="" alt="TX2" style="width: 90px;height: 90px;"
 											class="shadow img-thumbnail">
 										<!--用户头像-->
 									</div>
 									<div class="d-flex justify-content-center">
-										<font>马云</font>
+										<font id="RePing4"></font>
 										<!--用户名-->
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mt-1">
 									<div class="card">
 										<div class="card-body">
-											<font>退休的日子，喝喝茶，下下棋；惬意的很呐！</font>
+											<font id="RePing5"></font>
 											<!--评论内容-->
 											<div class="d-flex justify-content-start mt-1">
-												<font style="color:#808080;font-size: 12px;">2021/8/26 23:28</font>
+												<font id="RePing11" style="color:#808080;font-size: 12px;"></font>
 												<!--评论时间-->
 												<svg class="bi bi-hand-thumbs-up ml-1" width="0.9em" height="0.9em"
 													viewBox="0 0 16 16" fill="currentColor"
-													xmlns="http://www.w3.org/2000/svg">
+													xmlns="//www.w3.org/2000/svg">
 													<path fill-rule="evenodd"
 														d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16v-1c.563 0 .901-.272 1.066-.56a.865.865 0 0 0 .121-.416c0-.12-.035-.165-.04-.17l-.354-.354.353-.354c.202-.201.407-.511.505-.804.104-.312.043-.441-.005-.488l-.353-.354.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315L12.793 9l.353-.354c.353-.352.373-.713.267-1.02-.122-.35-.396-.593-.571-.652-.653-.217-1.447-.224-2.11-.164a8.907 8.907 0 0 0-1.094.171l-.014.003-.003.001a.5.5 0 0 1-.595-.643 8.34 8.34 0 0 0 .145-4.726c-.03-.111-.128-.215-.288-.255l-.262-.065c-.306-.077-.642.156-.667.518-.075 1.082-.239 2.15-.482 2.85-.174.502-.603 1.268-1.238 1.977-.637.712-1.519 1.41-2.614 1.708-.394.108-.62.396-.62.65v4.002c0 .26.22.515.553.55 1.293.137 1.936.53 2.491.868l.04.025c.27.164.495.296.776.393.277.095.63.163 1.14.163h3.5v1H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
 												</svg>
-												<font style="color:#808080;font-size: 12px;">9998</font>
+												<font id="RePing12" style="color:#808080;font-size: 12px;"></font>
 												<!--点赞量-->
 											</div>
 										</div>
@@ -136,7 +153,7 @@
 					style="border-radius: .8rem !important;display:none;">
 					<div class="card-body">
 						<div id="tishi"
-							style="border-radius: .4rem !important;background:rgba(0,0,0,0.4);color:#fff;position: fixed;">
+							style="border-radius: .4rem !important;background:rgba(0,0,0,0.4);color:#fff;position:static;">
 						</div>
 						<canvas id="canvas" width="1080px" height="680px" style="width:100%;height: 100%;"></canvas>
 					</div>
@@ -147,6 +164,84 @@
 						<!-- <p style="font-size: 20px;text-align: center;">评论统计</p> -->
 						<div id="echartsPingLun" style="width: 1080px;height:880px;"></div>
 					</div>
+				</div>
+				<div class="d-flex bd-highlight">
+					<div class="p-2 flex-fill bd-highlight">
+						<div class="card shadow" style="border-radius: .8rem;">
+							<div class="card-body">
+								<h5 class="border-bottom border-secondary">友情链接：</h6>
+									<ul class="list-group">
+										<li class="list-group-item list-group-item-action py-0"><a
+												class="text-decoration-none" href="//ltp.ai" target="_blank"
+												title="哈尔滨理工大学中文自然语言处理">哈工大LTP自然语言处理</a></li>
+										<li class="list-group-item list-group-item-action py-0 mt-2"><a
+												class="text-decoration-none" href="//echarts.apache.org" target="_blank"
+												title="基于JavaScript的开源可视化图表库">Apache ECharts</a></li>
+										<li class="list-group-item list-group-item-action py-0 mt-2"><a
+												class="text-decoration-none" href="//weibo.com/u/5863228053"
+												target="_blank" title="邓文怡Wendy的新浪微博">邓文怡Wendy的新浪微博</a></li>
+										<li class="list-group-item list-group-item-action py-0 mt-2"><a
+												class="text-decoration-none" href="//deng_wenyi.gitee.io"
+												target="_blank" title="LikeWendy的Gtiee博客">LikeWendy的Gtiee博客</a></li>
+										<li class="list-group-item list-group-item-action py-0 mt-2"><a
+												class="text-decoration-none" href="//blog.csdn.net/Deng_Xian_Sheng"
+												target="_blank" title="Deng-Xian-Sheng的CSDN博客">站长的CSDN博客</a></li>
+									</ul>
+							</div>
+						</div>
+					</div>
+					<div class="p-2 flex-fill bd-highlight">
+						<div class="card shadow" style="border-radius: .8rem;">
+							<div class="card-body py-2 px-2">
+								<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330
+									height=450
+									src="//music.163.com/outchain/player?type=0&id=6934526113&auto=0&height=430"></iframe>
+							</div>
+						</div>
+					</div>
+					<div class="p-2 flex-fill bd-highlight">
+						<div class="card shadow" style="border-radius: .8rem;">
+							<div class="card-body">
+								<h5 class="border-bottom border-secondary">站长简介</h5>
+								<p class="text-left">
+									简介是不可能写简介的，<br>19岁的年纪又找不到富婆，就是做做网站这种东西，<br>才能维持的了生活这样子。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="MianZe" data-backdrop="static" data-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable">
+						<div class="modal-content shadow" style="border-radius: .8rem;">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">免责声明</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<li>本网站所提供的信息，只供参考之用。</li>
+								<li>本网站及其雇员一概毋须以任何方式就任何信息传递或传送的失误、不准确或错误对用户或任何其他人士负任何直接或间接的责任。</li>
+								<li>在法律允许的范围内，本网站在此声明,不承担用户或任何人士就使用或未能使用本网站所提供的信息或任何链接或项目所引致的任何直接、间接、附带、从属、特殊、惩罚性或惩戒性的损害赔偿（包括但不限于收益、预期利润的损失或失去的业务、未实现预期的节省）。
+								</li>
+								<li>本网站所提供的信息，若在任何司法管辖地区供任何人士使用或分发给任何人士时会违反该司法管辖地区的法律或条例的规定或会导致本网站或其第三方代理人受限于该司法管辖地区内的任何监管规定时，则该等信息不宜在该司法管辖地区供该等任何人士使用或分发给该等任何人士。用户须自行保证不会受限于任何限制或禁止用户使用或分发本网站所提供信息的当地的规定。
+								</li>
+								<li>网站图片，文字之类版权申明，因为网站数据由用户的意志决定爬取哪些数据，本网站无法鉴别所爬取的图片或文字的知识版权，如果侵犯，请及时通知我们，本网站将在第一时间及时删除。
+								</li>
+								<li>凡以任何方式登陆本网站或直接、间接使用本网站资料者，视为自愿接受本网站声明的约束。</li>
+								本声明最后更新于2021年11月22日，最终解释权由站长所有。</li>
+							</div>
+							<div class="modal-footer">
+								<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+								<button type="button" class="btn btn-primary shadow" data-dismiss="modal">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">2021-现在｜<a data-toggle="modal" data-target="#MianZe">免责声明</a>｜<a
+						class="text-decoration-none" rel="nofollow" target="_blank" href="//beian.miit.gov.cn"
+						title="鲁ICP备2020042720号">鲁ICP备2020042720号</a>
 				</div>
 			</div>
 		</div>

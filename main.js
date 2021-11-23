@@ -13,9 +13,10 @@ $(document).ready(function () {
 			});
 		}
 	}, 100)
-	document.getElementById("tijiao").onclick = function () {	
+	document.getElementById("tijiao").onclick = function () {
 		defaultData()
 		DanQuRePing()
+		document.getElementById('AlertWarning').style.display = 'none';//隐藏掉警告提示，因为它不能随布局缩放
 	}
 	function defaultData() {
 		var zhengze = /id=(.*)/;
@@ -92,13 +93,32 @@ $(document).ready(function () {
 			}
 			count999++;
 		}
+		//取一个差不多的字大小
+		var countsum = 8;
 		if (wordFreqData.length < 100) {
-			var weightFactorValue = Math.round(wordFreqData.length / 2.68 * 1);
+			var weightFactorValue = Math.round(wordFreqData.length / 1.6);
+		} else if (wordFreqData.length < 200) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 1));
+		} else if (wordFreqData.length < 300) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 2));
+		} else if (wordFreqData.length < 400) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 3));
+		} else if (wordFreqData.length < 500) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 4));
+		} else if (wordFreqData.length < 600) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 5));
+		} else if (wordFreqData.length < 700) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 6));
+		} else if (wordFreqData.length < 800) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 7));
+		} else if (wordFreqData.length < 900) {
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 8));
 		} else if (wordFreqData.length < 1000) {
-			var weightFactorValue = Math.round(wordFreqData.length / 139 * 1);
+			var weightFactorValue = Math.round(wordFreqData.length / (countsum * 9));
 		} else {
 			var weightFactorValue = 1;
 		}
+
 		var canvas = document.getElementById('canvas');
 		var options = eval({
 			"list": wordFreqData,//或者[['各位观众',45],['词云', 21],['来啦!!!',13]],只要格式满足这样都可以
@@ -116,25 +136,28 @@ $(document).ready(function () {
 				document.getElementById("tishi").innerHTML = '评论:' + item[0] + ' ' + '出现次数:' + item[1];
 			},
 			"click": function (item) {//点击事件
-				window.open('https://music.163.com/#/search/m/?s=' + item[0] + '&type=1');
+				window.open('//music.163.com/#/search/m/?s=' + item[0] + '&type=1');
 			},
 			"origin": [540, 100],
 		});
 		//生成
 		WordCloud(canvas, options);
-		document.onmousemove = function (ev) {
-			var oEvent = ev || event;
-			var oDiv = document.getElementById('tishi');
-			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-			var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-			oDiv.style.left = oEvent.clientX + scrollLeft + 'px';
-			if (navigator.userAgent.indexOf('Chrome') > -1 == true) {
-				oDiv.style.top = oEvent.clientY + scrollTop + 10 + 'px';
-			} else {
-				oDiv.style.top = oEvent.clientY + scrollTop + 'px';
-			}
 
-		}
+		/*
+		 * 随鼠标滚动
+		*/
+		// document.onmousemove = function (ev) {
+		// 	var oEvent = ev || event;
+		// 	var oDiv = document.getElementById('tishi');
+		// 	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		// 	var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+		// 	oDiv.style.left = oEvent.clientX + scrollLeft + 'px';
+		// 	if (navigator.userAgent.indexOf('Chrome') > -1 == true) {
+		// 		oDiv.style.top = oEvent.clientY + scrollTop + 10 + 'px';
+		// 	} else {
+		// 		oDiv.style.top = oEvent.clientY + scrollTop + 'px';
+		// 	}
+		// }
 		$("#canvas").mouseleave(function () {
 			document.getElementById("tishi").innerHTML = '';
 		});
@@ -213,9 +236,10 @@ $(document).ready(function () {
 			}
 		};
 		// 使用刚指定的配置项和数据显示图表。
+		myChart.off('click')//解决Safari浏览器多次提交时重复触发
 		myChart.setOption(option);
 		myChart.on('click', function (params) {
-			window.open('https://music.163.com/#/search/m/?s=' + encodeURIComponent(params.name));
+			window.open('//music.163.com/#/search/m/?s=' + encodeURIComponent(params.name));
 		});
 	}
 	function DanQuRePing() {
@@ -245,20 +269,38 @@ $(document).ready(function () {
 					// });
 				} else {
 					//alert(data);
-					// ciyun(data);
+					//ciyun(data);
 					document.getElementById('RePing').style.display = '';
 					var data = JSON.parse(data);
 					if (data['UserContent']['beReplied'] != null) {
 						document.getElementById('RePing2').style.display = '';
-						document.getElementById('RePing3').src = data['UserAvatar'];
-						//data['UserContentTime'];
-					}else{
+						document.getElementById('RePing6').src = data['UserContent']['beReplied']['UserAvatar'];
+						document.getElementById('RePing7').innerText = data['UserContent']['beReplied']['UserName'];
+						document.getElementById('RePing8').innerText = data['UserContent']['beReplied']['UserContent'];
+						document.getElementById('RePing13').style.visibility = 'hidden';
 
+						document.getElementById('RePing3').src = data['UserAvatar'];
+						document.getElementById('RePing4').innerText = data['UserName'];
+						document.getElementById('RePing5').innerText = data['UserContent']['UserContent'];
+						document.getElementById('RePing11').innerText = data['UserContentTime'];
+						document.getElementById('RePing12').innerText = data['UserLikedCount'];
+					} else {
+						document.getElementById('RePing13').style.visibility = 'visible';
+						document.getElementById('RePing2').style.display = 'none';
+
+						document.getElementById('RePing6').src = data['UserAvatar'];
+						document.getElementById('RePing7').innerText = data['UserName'];
+						document.getElementById('RePing8').innerText = data['UserContent'];
+						document.getElementById('RePing9').innerText = data['UserContentTime'];
+						document.getElementById('RePing10').innerText = data['UserLikedCount'];
 					}
-					console.log(data);
 				}
 				//layer.closeAll('loading');
 			});
 		}
 	}
+	seamscroll.init({
+		dom: document.getElementById('GoodWarning'),
+		direction: 2
+	})
 });
