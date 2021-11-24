@@ -14,8 +14,8 @@ $(document).ready(function () {
 		}
 	}, 100)
 	document.getElementById("tijiao").onclick = function () {
-		defaultData()
-		DanQuRePing()
+		defaultData();
+		DanQuRePing();
 		document.getElementById('AlertWarning').style.display = 'none';//隐藏掉警告提示，因为它不能随布局缩放
 	}
 	function defaultData() {
@@ -31,8 +31,16 @@ $(document).ready(function () {
 				id: post1,
 			}, function (data) {
 				if (data == 1) {
-					swal("任务已下发", "服务器处理中\n该音乐链接不在服务器中，需重新抓取数据\n依评论数量预计需要1秒～10分钟\n(10分钟=15万条评论)", "success");
+					swal({
+						title: "任务已下发",
+						text: "服务器处理中\n该音乐链接不在服务器中，需重新抓取数据\n依评论数量预计需要1秒～10分钟\n(10分钟=15万条评论)",
+						type: "success",
+						timer: 2000,
+					},function (){
+						$("#tijiao").trigger("click");//帮忙按提交按钮以弹窗显示进度条
+					});
 				} else if (data == 50 || data == 75 || data == 100) {
+					Jindu();//触发显示进度条
 					swal({
 						title: "任务处理中",
 						text: '您的任务正在处理<br>预计需要10秒～10分钟<br>(10分钟=15万条评论)<br>一杯咖啡的功夫就好，请耐心等待!\
@@ -49,33 +57,47 @@ $(document).ready(function () {
 			});
 		}
 	}
-	setInterval(function () {
-		if ($('#jindu').length > 0) {
-			var zhengze = /id=(.*)/;
-			var post1 = wangzhi.value.match(zhengze);
-			if (post1 != null) {
-				post1 = post1[1];
-				$.post('main.php', {
-					id: post1,
-				}, function (data) {
-					var jinduValue = document.getElementById("jindu");
-					if (data == 50) {
-						jinduValue.setAttribute('style', 'width: 50%');
-						jinduValue.setAttribute('aria-valuenow', '50');
-						jinduValue.innerHTML = '50%';
-					} else if (data == 75) {
-						jinduValue.setAttribute('style', 'width: 75%');
-						jinduValue.setAttribute('aria-valuenow', '75');
-						jinduValue.innerHTML = '75%';
-					} else if (data == 100) {
-						jinduValue.setAttribute('style', 'width: 100%');
-						jinduValue.setAttribute('aria-valuenow', '100');
-						jinduValue.innerHTML = '100%';
-					}
-				});
+	function Jindu() {
+		var JinDuStop = setInterval(function () {
+			if ($('#jindu').length > 0) {
+				var zhengze = /id=(.*)/;
+				var post1 = wangzhi.value.match(zhengze);
+				if (post1 != null) {
+					post1 = post1[1];
+					$.post('main.php', {
+						id: post1,
+					}, function (data) {
+						var jinduValue = document.getElementById("jindu");
+						if (data == 50) {
+							jinduValue.setAttribute('style', 'width: 50%');
+							jinduValue.setAttribute('aria-valuenow', '50');
+							jinduValue.innerHTML = '50%';
+						} else if (data == 75) {
+							jinduValue.setAttribute('style', 'width: 75%');
+							jinduValue.setAttribute('aria-valuenow', '75');
+							jinduValue.innerHTML = '75%';
+						} else if (data == 100) {
+							jinduValue.setAttribute('style', 'width: 100%');
+							jinduValue.setAttribute('aria-valuenow', '100');
+							jinduValue.innerHTML = '100%';
+						} else {
+							/*
+							数据量小后端处理过快时data不会出现100%；所以当data为其他数据时也显示100%
+							*/
+							jinduValue.setAttribute('style', 'width: 100%');
+							jinduValue.setAttribute('aria-valuenow', '100');
+							jinduValue.innerHTML = '100%';
+							clearInterval(JinDuStop);//结束循环定时器
+							setTimeout(function () {
+								swal.close()//关闭弹窗
+								$("#tijiao").trigger("click");//帮忙按提交以显示处理结果
+							}, 2000);
+						}
+					});
+				}
 			}
-		}
-	}, 100)
+		}, 100)
+	}
 	function ciyun(data) {
 		document.getElementById('ciKaPian').style.display = '';
 		document.getElementById('ciTongJiKaPian').style.display = '';
@@ -306,10 +328,10 @@ $(document).ready(function () {
 
 	$(function () { $("[data-toggle='popover']").popover(); });
 	var caidan = document.getElementById('CaiDan');
-	caidan.onmouseover=function(){
+	caidan.onmouseover = function () {
 		$("#CaiDan").trigger("click");
 	}
-	caidan.onmouseout=function(){
+	caidan.onmouseout = function () {
 		$("#CaiDan").trigger("click");
 	}
 });
